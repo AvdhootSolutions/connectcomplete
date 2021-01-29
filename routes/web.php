@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth'],'namespace' => 'App\Http\Controllers'], f
 Route::resource('/categories','CategoriesController');
 Route::resource('/subcategories','SubCategoriesController');
 Route::resource('/childcategories','ChildCategoriesController');
+Route::resource('/childcategories','ChildCategoriesController');
 
 
 /* Ajax Route */

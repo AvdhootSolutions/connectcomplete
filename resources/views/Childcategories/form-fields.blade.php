@@ -19,7 +19,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Price</label>
-                    <input type="text" name="price"  class="form-control" id="exampleInputPassword1" placeholder="Price"  value="{{ isset($data['childcategory']->price ) ? $data['childcategory']->price : old('price') }}" >
+                    <input type="text" name="price" onkeypress="return isNumber(event)" class="form-control" id="exampleInputPassword1" placeholder="Price"  value="{{ isset($data['childcategory']->price ) ? $data['childcategory']->price : old('price') }}" >
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Remarks</label>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use App\User;
+use App\Models\User;
 use Auth;
 class HomeController extends Controller
 {
@@ -26,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-       //$user = Auth::user();
+        
+       //$users = User::whereHas("roles", function($q){ $q->where("name", "employee"); })->get();
      
        //$user->assignRole('admin');
-
+       // dd($users);
         return view('home');
     }
 }

@@ -44,7 +44,7 @@ class LoginController extends Controller
     {
          $user = Auth::user();
           
-        if (!$user->hasAnyRole(['superadmin','admin'])) {
+        if (!$user->hasAnyRole(['cityadmin','admin','employee'])) {
              $this->guard()->logout();
              $request->session()->invalidate();
              return redirect('/login')->withErrors('You are unauthorized to login');

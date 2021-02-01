@@ -33,6 +33,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
+        @role('admin')
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -65,19 +66,104 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit' || Route::current()->getName() == 'cities.index' ||  Route::current()->getName() == 'cities.create' || Route::current()->getName() == 'cities.edit'||Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Locations
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('states.index')}}" class="nav-link @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>States</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('cities.index')}}" class="nav-link @if(Route::current()->getName() == 'cities.index' ||  Route::current()->getName() == 'cities.create' || Route::current()->getName() == 'cities.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cities</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('areas.index')}}" class="nav-link @if(Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Areas</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <a href="{{ route('users.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+              City Admin
+                 
               </p>
             </a>
           </li>
-          
-          
-          
         </ul>
+        @endrole
+
+        @role('cityadmin')
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit' || Route::current()->getName() == 'subcategories.index' ||  Route::current()->getName() == 'subcategories.create' || Route::current()->getName() == 'subcategories.edit' || Route::current()->getName() == 'childcategories.index' ||  Route::current()->getName() == 'childcategories.create' || Route::current()->getName() == 'childcategories.edit' ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('categories.index')}}" class="nav-link @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dummy</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+          <li class="nav-item @if(Route::current()->getName() == 'employees.index' ||  Route::current()->getName() == 'employees.create' || Route::current()->getName() == 'employees.edit' ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('employees.index')}}" class="nav-link @if(Route::current()->getName() == 'employees.index' ||  Route::current()->getName() == 'employees.create' || Route::current()->getName() == 'employees.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Employees</p>
+                </a>
+              </li>
+              <li class="nav-item  ">
+                <a href="{{route('states.index')}}" class="nav-link @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Executives</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li class="nav-item">
+            <a href="{{ route('users.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+              City Admin
+                 
+              </p>
+            </a>
+          </li> -->
+        </ul>
+        @endrole
       </nav>
       <!-- /.sidebar-menu -->
     </div>

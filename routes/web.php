@@ -26,10 +26,15 @@ Route::group(['middleware' => ['auth'],'namespace' => 'App\Http\Controllers'], f
 Route::resource('/categories','CategoriesController');
 Route::resource('/subcategories','SubCategoriesController');
 Route::resource('/childcategories','ChildCategoriesController');
-Route::resource('/childcategories','ChildCategoriesController');
+Route::resource('/users','UserController');
+Route::resource('/states','StateController');
+Route::resource('/cities','CityController');
+Route::resource('/areas','AreasController');
+Route::resource('/employees','EmployeeController');
 
 
 /* Ajax Route */
 
 Route::get('/getsubcategory','ChildCategoriesController@getSubCategory')->name('getsubcategory');
+Route::get('/getcity','AreasController@getCity')->name('getcity');
 });

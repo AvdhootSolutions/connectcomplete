@@ -73,6 +73,7 @@ class ChildCategoriesController extends Controller
         $childcategory->sorting_number = $request->sorting_number;
         $childcategory->category_id = $request->category_id;
         $childcategory->subcategory_id = $request->subcategory_id;
+        $childcategory->price = $request->price;
         $childcategory->child_category_image = $childcatImage;
         $childcategory->remarks=$request->remarks;
         $result = $childcategory->save();
@@ -134,6 +135,7 @@ class ChildCategoriesController extends Controller
                 'sorting_number' => $request->sorting_number,
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
+                'price' => $request->price,
                 'child_category_image' => $childcatImage,
                 'remarks'=>$request->remarks
             ];

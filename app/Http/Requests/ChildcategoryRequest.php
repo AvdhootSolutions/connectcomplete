@@ -28,6 +28,7 @@ class ChildcategoryRequest extends FormRequest
                'child_category_name'=>'required|unique:tbl_child_category,child_category_name,'.$id.',id,deleted_at,NULL',
                 'category_id' => 'required',
                 'subcategory_id' => 'required',
+                'price' => 'required',
             ]; 
         } else {
 
@@ -36,7 +37,7 @@ class ChildcategoryRequest extends FormRequest
                 'child_category_name'=>'required|unique:tbl_child_category,child_category_name'.$id,
                 'sorting_number' => 'required',
                 'category_id' => 'required',
-                'subcategory_id' => 'required',
+                'price' => 'required',
             ];
 
         } 
@@ -53,7 +54,8 @@ class ChildcategoryRequest extends FormRequest
             'child_category_name.required'  => 'Child Category Name is mandatory',
             'category_id.required'  => 'Category is mandatory',
             'subcategory_id.required'  => 'Subcategory is mandatory',
-            'sorting_number.required' => 'Sorting Number is mandatory' 
+            'sorting_number.required' => 'Sorting Number is mandatory',
+            'price.required' => 'Price is mandatory'
              
 
             

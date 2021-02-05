@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ChildcategoryRequest;
-use App\Models\Category;
-use App\Models\Subcategory;
-use App\Models\ChildCategory;
+use App\Models\CorporateCategory;
+use App\Models\CorporateSubcategory;
+use App\Models\CorporateChildCategory;
 
-class ChildCategoriesController extends Controller
+class CorporateChildCategoriesController extends Controller
 {
     public function __construct()
     {
@@ -22,7 +22,7 @@ class ChildCategoriesController extends Controller
     
         $cat_id = (int) $request->category_id;
         if ($cat_id > 0) {
-            $subcategory = Subcategory::select(['id', 'subcategory_name'])
+            $subcategory = CorporateSubcategory::select(['id', 'subcategory_name'])
                             ->where("category_id", $cat_id)
                             ->orderBy('subcategory_name')
                             ->get();
@@ -35,8 +35,9 @@ class ChildCategoriesController extends Controller
     {
         $data = [];
         $data['page_title']="Child Categories Listing";
-        $data['childcategory']=ChildCategory::with(['category','subcategory'])->orderBy('id','desc')->get();
-        return view('Childcategories.index',compact('data'));
+        $data['childcategory']=CorporateChildCategory::with(['category','subcategory'])->orderBy('id','desc')->get();
+         
+        return view('CorporateChildcategories.index',compact('data'));
     }
 
      
@@ -45,11 +46,11 @@ class ChildCategoriesController extends Controller
         $data = [];
         $data['page_title']="Child Category create";
         $data['action']='create';
-        $data['category']=Category::pluck('category_name','id');
+        $data['category']=CorporateCategory::pluck('category_name','id');
         $data['selectedCategory']='';
         $data['subcategory']=[];
         $data['selectedSubCategory']='';
-        return view('Childcategories.manage',compact('data'));
+        return view('CorporateChildcategories.manage',compact('data'));
     }
 
      
@@ -62,7 +63,7 @@ class ChildCategoriesController extends Controller
             ]);
             $childcategoryPic = $request->file('child_category_image');
             $childcatImage = time().'.'.$childcategoryPic->getClientOriginalExtension();
-            $destinationPath = public_path('/childcategory');
+            $destinationPath = public_path('/corporatechildcategory');
             $childcategoryPic->move($destinationPath, $childcatImage);
         } else {
             $childcatImage ='';
@@ -81,7 +82,7 @@ class ChildCategoriesController extends Controller
 
 
 
-        $childcategory = new ChildCategory();
+        $childcategory = new CorporateChildCategory();
         $childcategory->child_category_name = $request->child_category_name;
         $childcategory->sorting_number = $request->sorting_number;
         $childcategory->category_id = $request->category_id;
@@ -97,7 +98,7 @@ class ChildCategoriesController extends Controller
 
         if($result==1)
         {
-            return redirect()->route('childcategories.index')->with('success','Child Category Successfully Added');
+            return redirect()->route('corportatechildcategories.index')->with('success','Child Category Successfully Added');
         } else {
             return redirect()->back()->with('error','Something Went Wrong Try Again');
         }
@@ -114,26 +115,26 @@ class ChildCategoriesController extends Controller
      
     public function edit($id)
     {
-        $childcategory = ChildCategory::find($id);
+        $childcategory = CorporateChildCategory::find($id);
         $data = [];
         $data['page_title']="Child Category Edit";
         $data['action']='edit';
-        $data['category']=Category::pluck('category_name','id');
+        $data['category']=CorporateCategory::pluck('category_name','id');
         $data['selectedCategory']=$childcategory->category_id;
         $data['subcategory']=Subcategory::pluck('subcategory_name','id');
         $data['selectedSubCategory']=$childcategory->subcategory_id;
         $data['childcategory']=$childcategory;
-        return view('Childcategories.manage',compact('data'));
+        return view('CorporateChildcategories.manage',compact('data'));
     }
 
      
     public function update(ChildcategoryRequest $request, $id)
     {
-        $childcategory = ChildCategory::find($id);
+        $childcategory = CorporateChildCategory::find($id);
         if ($request->hasFile('child_category_image')) {
 
 
-            $destinationPath = public_path('/childcategory');
+            $destinationPath = public_path('/corporatechildcategory');
             File::delete($destinationPath.'/'.$childcategory->child_category_image);
 
 
@@ -142,7 +143,7 @@ class ChildCategoriesController extends Controller
             ]);
             $childcategoryPic = $request->file('child_category_image');
             $childcatImage = time().'.'.$childcategoryPic->getClientOriginalExtension();
-            $destinationPath = public_path('/childcategory');
+            $destinationPath = public_path('/corporatechildcategory');
             $childcategoryPic->move($destinationPath, $childcatImage);
         } else {
             $childcatImage =$childcategory->child_category_image;
@@ -174,11 +175,11 @@ class ChildCategoriesController extends Controller
                 'service_cost'=>$service_cost,
             ];
         
-        $result = ChildCategory::where('id',$id)->update($updateArray);
+        $result = CorporateChildCategory::where('id',$id)->update($updateArray);
        
         if($result==1)
         {
-            return redirect()->route('childcategories.index')->with('success','Child Category Successfully Update');
+            return redirect()->route('corportatechildcategories.index')->with('success','Child Category Successfully Update');
         } else {
             return redirect()->back()->with('error','Something Went Wrong Try Again');
         } 
@@ -189,16 +190,16 @@ class ChildCategoriesController extends Controller
     {
         try {
             //check any subcategory exsists for these category
-            $childcategory = ChildCategory::find($id);
-            $destinationPath = public_path('/childcategory');
+            $childcategory = CorporateChildCategory::find($id);
+            $destinationPath = public_path('/corporatechildcategory');
             File::delete($destinationPath.'/'.$childcategory->child_category_image);
             $result = $childcategory->delete();
             if($result==1){
                 $message = 'Child Category Successfully Deleted';
-                return redirect()->route('childcategories.index')->with( [ 'success' => $message ] );
+                return redirect()->route('corportatechildcategories.index')->with( [ 'success' => $message ] );
             } else {
                 $message = 'Oops Something went wrong try again';
-                return redirect()->route('childcategories.index')->with( [ 'error' => $message ] );
+                return redirect()->route('corportatechildcategories.index')->with( [ 'error' => $message ] );
             }
         } catch (Exception $e) {
             

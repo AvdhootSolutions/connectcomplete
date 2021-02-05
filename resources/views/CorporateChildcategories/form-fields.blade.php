@@ -59,7 +59,7 @@
                     </div>
                   </div>
                   @if(isset($data['childcategory']->child_category_image))
-                  <img id="blah" height="100" width="100" src="{{asset('public/childcategory/'.$data['childcategory']->child_category_image)}}" alt="your image" />
+                  <img id="blah" height="100" width="100" src="{{asset('public/corporatechildcategory/'.$data['childcategory']->child_category_image)}}" alt="your image" />
                   @else
                   <img id="blah" height="100" width="100" src="#" alt="your image" />
                   @endif

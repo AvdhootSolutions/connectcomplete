@@ -24,7 +24,7 @@
                     </div>
                   </div>
                    @if(isset($data['category']->category_image))
-                    <img id="blah" height="100" width="100" src="{{asset('public/category/'.$data['category']->category_image)}}" alt="your image" />
+                    <img id="blah" height="100" width="100" src="{{asset('public/corporatecategory/'.$data['category']->category_image)}}" alt="your image" />
                     @else
                     <img id="blah" height="100" width="100" src="#" alt="your image" />
                     @endif

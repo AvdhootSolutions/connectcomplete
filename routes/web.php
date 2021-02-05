@@ -26,6 +26,15 @@ Route::group(['middleware' => ['auth'],'namespace' => 'App\Http\Controllers'], f
 Route::resource('/categories','CategoriesController');
 Route::resource('/subcategories','SubCategoriesController');
 Route::resource('/childcategories','ChildCategoriesController');
+
+
+
+Route::resource('/corportatecategories','CorporateCategoriesController');
+Route::resource('/corportatesubcategories','CorporateSubCategoriesController');
+Route::resource('/corportatechildcategories','CorporateChildCategoriesController');
+
+
+
 Route::resource('/users','UserController');
 Route::resource('/states','StateController');
 Route::resource('/cities','CityController');
@@ -37,4 +46,5 @@ Route::resource('/employees','EmployeeController');
 
 Route::get('/getsubcategory','ChildCategoriesController@getSubCategory')->name('getsubcategory');
 Route::get('/getcity','AreasController@getCity')->name('getcity');
+Route::get('/getareas','AreasController@getAreas')->name('getareas');
 });

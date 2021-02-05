@@ -3,12 +3,12 @@
 <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Categories</h1>
+            <h1>City Admin</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Categories</li>
+              <li class="breadcrumb-item active">City Admin</li>
             </ol>
           </div>
         </div>
@@ -18,7 +18,7 @@
   <!-- Default box -->
       <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Categories</h3>
+                <h3 class="card-title">City Admin</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start --> @include('layouts.errorMessage')
@@ -61,6 +61,11 @@
       
   });
 
+  $('.areas').select2({
+      placeholder: " Select Areas"
+      
+  });
+
    $(document).on('change', 'select#state_id', function(e) {
    
         e.preventDefault();
@@ -98,6 +103,63 @@
             $("select#" + city_id).empty();
             $("select#" + city_id).append('<option value="">Select Option</option>');
             $("select#" + city_id).trigger("chosen:updated");
+        }
+    });
+
+   <?php if(isset($data['assignedAreas'])) {?>
+    $("#assign_area").show();
+
+    <?php
+
+   } else {
+    ?>
+   $("#assign_area").hide();
+
+    <?php
+   } ?>
+
+   $(document).on('change', 'select#city_id', function(e) {
+     
+        e.preventDefault();
+        var _this = this;
+        var propertyCatId = $(_this).val();
+        var area_id = 'area_id';
+        var _parent = $('#area_id').parent();
+
+        if (propertyCatId > 0) {
+            $.ajax({
+                url: '{{route('getareas')}}',
+                method: 'GET',
+                data: $(_this).serialize(),
+                beforeSend: function(data) {
+                    $("#list_area").empty();
+                    $("select#" + area_id).empty();
+                    $("select#" + area_id).append('<option value="">Please wait...</option>');
+                    $("select#" + area_id).trigger("chosen:updated");
+                },
+                success: function(xhr, textStatus, jQxhr) {
+                    $("#assign_area").show();
+                     
+                    $.each(xhr.selectedAreas, function(key, value) {
+                        $("#list_area").append('<li style="padding:0 15px;background-color:#007bff;border-color: #006fe6;color: #fff;margin-right:5px;">' + value.name + '</li>');
+                    });
+
+                    $("select#" + area_id).empty();
+                    $("select#" + area_id).append('<option value="">Select Option</option>');
+                    $.each(xhr.data, function(key, value) {
+                        $("select#" + area_id).append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                    $("select#" + area_id).trigger("chosen:updated");
+                    //loadPlugins();
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    alert('Please refresh the page to continue.');
+                }
+            });
+        } else {
+            $("select#" + area_id).empty();
+            $("select#" + area_id).append('<option value="">Select Option</option>');
+            $("select#" + area_id).trigger("chosen:updated");
         }
     });
 </script>

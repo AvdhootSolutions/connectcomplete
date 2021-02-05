@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\States;
 use App\Models\Cities;
 use App\Models\Areas;
-
+use App\Models\User;
+use App\Models\UserAreas;
 class AreasController extends Controller
 { 
 
@@ -27,6 +28,28 @@ class AreasController extends Controller
                             ->get();
         
             return response()->json(array('status' => 'success', 'data' => $subcategory));
+        }
+        return response()->json(array('status' => 'error', 'data' => 'invalid request'));
+    } 
+    public function getAreas(Request $request)
+    {
+          
+        $city_id = (int) $request->city_id;
+
+        
+
+        
+
+        if ($city_id > 0) {
+            $UserAreas = UserAreas::where('city_id',$city_id)->pluck('area_id')->toArray();
+            
+            $selectedAreas = Areas::select(['id', 'name'])->where("city_id", $city_id)->whereIn('id',$UserAreas)->get();
+            $areas = Areas::select(['id', 'name'])
+                            ->where("city_id", $city_id)
+                            ->orderBy('name')
+                            ->get();
+        
+            return response()->json(array('status' => 'success', 'data' => $areas,'selectedAreas'=>$selectedAreas));
         }
         return response()->json(array('status' => 'error', 'data' => 'invalid request'));
     } 

@@ -4,30 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Employee;
-use App\Models\EmployeeAreas;
-use App\Models\EmployeeCategories;
+use App\Models\Areas;
+use App\Models\Executive;
+use App\Models\ExecutiveAreas;
+use App\Models\ExecutiveCategories;
 use Auth;
 use Hash;
-use App\Models\Areas;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Http\Requests\AssignCategoryRequest;
-class EmployeeController extends Controller
+
+class ExecutiveController extends Controller
 {
-    
     public function __construct()
     {
         $this->middleware('auth');
-        $this->page_data['page_title'] = 'Crew Member';
-        
+        $this->page_data['page_title'] = 'Executive';
     }
-    public function searchEmployee(Request $request)
+
+    public function searchExecutive(Request $request)
     {
         //dd($request->all());
         $id = Auth::user()->id;
         $city_id = Auth::user()->city_id;
-        $query = Employee::where('city_admin_id',$id);
+        $query = Executive::where('city_admin_id',$id);
 
         if(isset($request->username) && $request->username !="")
         {
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
              $data['subcategory']=[];
         }
 
-        $data['page_title']="Employee Listing";
+        $data['page_title']="Executive Listing";
         $data['category']=Category::pluck('category_name','id');
 
         $data['areas']=Areas::select(['id', 'name'])
@@ -79,18 +79,19 @@ class EmployeeController extends Controller
                             ->orderBy('name')
                             ->get();
 
-
-        $data['employee'] = $query->orderBy('id','desc')->get();
-        return view('Employee.index',compact('data'));
+        $data['executive'] = $query->orderBy('id','desc')->get();
+        return view('Executive.index',compact('data'));
     }
+
 
     public function index()
     {
-        $data= [];
-        $data['page_title']='Crew Member Listing';
+        $data = [];
+        $data['page_title']="Executive Listing";
+        $id = Auth::user()->id;
+
         $city_id = Auth::user()->city_id;
 
-        $id = Auth::user()->id;
         $data['areas']=Areas::select(['id', 'name'])
                             ->where("city_id", $city_id)
                             ->orderBy('name')
@@ -101,35 +102,38 @@ class EmployeeController extends Controller
 
         $data['childcategory']=[];
         $data['selectedCategory']="";
+    
         $data['subcategory']=[];
-        $data['employee']=Employee::where('city_admin_id',$id)->orderBy('id','desc')->get();
-        return view('Employee.index',compact('data'));
+
+
+        $data['executive']=Executive::where('city_admin_id',$id)->orderBy('id','desc')->get();
+        return view('Executive.index',compact('data'));
     }
 
-    
-    public function create()
+
+     public function create()
     {
         $data = [];
-        $data['page_title']="Create Crew Member";
+        $data['page_title']="Create Executive";
         $data['action'] ="create";
-        $cityId = Auth::user()->city_id;
+       	$cityId = Auth::user()->city_id;
+        
         $data['areas'] = Areas::where('city_id',$cityId)->get();
-        $executiveAreas = EmployeeAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
+       	$executiveAreas = ExecutiveAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
         $areas = Areas::select(['id', 'name'])->where("city_id", $cityId)->whereIn('id',$executiveAreas)->get();
         $data['assignedAreas'] = $areas;
-      
-        return view('Employee.manage',compact('data'));   
+        return view('Executive.manage',compact('data'));   
     }
 
     public function store(Request $request)
     {
-        if ($request->hasFile('profile_image')) {
+    	if ($request->hasFile('profile_image')) {
             $this->validate($request, [
                  'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             $profPic = $request->file('profile_image');
             $profileImage = time().'.'.$profPic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeeprofilepic');
+            $destinationPath = public_path('/executiveprofilepic');
             $profPic->move($destinationPath, $profileImage);
         } else {
             $profileImage ='';
@@ -141,7 +145,7 @@ class EmployeeController extends Controller
             ]);
             $govPic = $request->file('govement_proff');
             $govementProff = time().'.'.$govPic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeegovementproff');
+            $destinationPath = public_path('/executivegovementproff');
             $govPic->move($destinationPath, $govementProff);
         } else {
             $govementProff ='';
@@ -153,54 +157,48 @@ class EmployeeController extends Controller
             ]);
             $PolicePic = $request->file('police_verification');
             $policeverificationProff = time().'.'.$PolicePic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeePoliceproff');
+            $destinationPath = public_path('/executivePoliceproff');
             $PolicePic->move($destinationPath, $policeverificationProff);
         } else {
             $policeverificationProff ='';
         }
 
 
-      
-        $employee = new Employee();
-        $employee->city_admin_id = Auth::user()->id;
-        $employee->city_id = Auth::user()->city_id;
-        $employee->name = $request->username;
-        $employee->email = $request->email;
-        $employee->password = Hash::make($request->password);
-        $employee->designation = $request->designation;
-        $employee->mobile_number = $request->mobile_number;
-        $employee->remarks = $request->remarks;
-        $employee->profile_pic = $profileImage;
-        $employee->goverment_proff = $govementProff;
-        $employee->police_verification = $policeverificationProff;
-        $employee->experience = $request->experience;
-        $employee->save();
+
+        $executive = new Executive();
+        $executive->city_admin_id = Auth::user()->id;
+        $executive->city_id = Auth::user()->city_id;
+        $executive->name = $request->username;
+        $executive->email = $request->email;
+        $executive->password = Hash::make($request->password);
+        $executive->designation = $request->designation;
+        $executive->mobile_number = $request->mobile_number;
+    
+        $executive->remarks = $request->remarks;
+        $executive->profile_pic = $profileImage;
+        $executive->goverment_proff = $govementProff;
+        $executive->police_verification = $policeverificationProff;
+        $executive->experience = $request->experience;
+        $executive->save();
         
 
-        $employeeId = $employee->id;
+        $executiveId = $executive->id;
+
         foreach ($request->areas as $key => $area_id) {
-            $userAreas = new EmployeeAreas();
-            $userAreas->employee_id = $employeeId;
+            $userAreas = new ExecutiveAreas();
+            $userAreas->executive_id = $executiveId;
             $userAreas->city_id = Auth::user()->city_id;
             $userAreas->area_id = $area_id;
             $userAreas->save();
         }
-        return redirect()->route('crews.index')->with('success','Employee Successfully Added');
-    }
-
-    public function show($id)
-    {
-        $data = [];
-        $data['users'] = Employee::with(['areas.areas','category.category','category.subcategory'])->where('id',$id)->first();
-        $data['page_title']="View Crew Member";
-        return view('Employee.show',compact('data'));
+        return redirect()->route('executives.index')->with('success','Executive Successfully Added');
     }
 
     public function edit(Request $request,$id)
     {
-        $users = Employee::find($id);
+    	$users = Executive::find($id);
         $data = [];
-        $data['page_title']="edit Employee";
+        $data['page_title']="edit Executive";
         $data['action']="edit"; 
         $data['user'] = $users;
 
@@ -208,31 +206,30 @@ class EmployeeController extends Controller
         $cityId = Auth::user()->city_id;
         
         $data['areas'] = Areas::where('city_id',$cityId)->get();
-        $data['executiveAreas'] = EmployeeAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
-        $executiveAreas = EmployeeAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
+       	$data['executiveAreas'] = ExecutiveAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
+       	$executiveAreas = ExecutiveAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
 
 
         $areas = Areas::select(['id', 'name'])->where("city_id", $cityId)->whereIn('id',$executiveAreas)->get();
         $data['assignedAreas'] = $areas;
         
         
-        return view('Employee.manage',compact('data'));
+        return view('Executive.manage',compact('data'));
     }
 
-    
     public function update(Request $request, $id)
-    {   
-        $user = Employee::find($id);
-        if ($request->hasFile('profile_image')) {
+    {	
+    	$user = Executive::find($id);
+    	if ($request->hasFile('profile_image')) {
             $this->validate($request, [
                  'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            $destinationPath = public_path('/employeeprofilepic');
+            $destinationPath = public_path('/executiveprofilepic');
             File::delete($destinationPath.'/'.$user->profile_pic);
             
             $profPic = $request->file('profile_image');
             $profileImage = time().'.'.$profPic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeeprofilepic');
+            $destinationPath = public_path('/executiveprofilepic');
             $profPic->move($destinationPath, $profileImage);
 
         } else {
@@ -243,11 +240,11 @@ class EmployeeController extends Controller
             $this->validate($request, [
                  'govement_proff' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            $destinationPath = public_path('/employeegovementproff');
+            $destinationPath = public_path('/executivegovementproff');
             File::delete($destinationPath.'/'.$user->govement_proff);
             $govPic = $request->file('govement_proff');
             $govementProff = time().'.'.$govPic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeegovementproff');
+            $destinationPath = public_path('/executivegovementproff');
             $govPic->move($destinationPath, $govementProff);
         } else {
             $govementProff =$user->goverment_proff;
@@ -257,11 +254,11 @@ class EmployeeController extends Controller
             $this->validate($request, [
                  'police_verification' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-            $destinationPath = public_path('/employeePoliceproff');
+            $destinationPath = public_path('/executivePoliceproff');
             File::delete($destinationPath.'/'.$user->police_verification);
             $PolicePic = $request->file('police_verification');
             $policeverificationProff = time().'.'.$PolicePic->getClientOriginalExtension();
-            $destinationPath = public_path('/employeePoliceproff');
+            $destinationPath = public_path('/executivePoliceproff');
             $PolicePic->move($destinationPath, $policeverificationProff);
         } else {
             $policeverificationProff =$user->police_verification;
@@ -274,74 +271,78 @@ class EmployeeController extends Controller
             $password = $user->password;
         }
 
-        EmployeeAreas::where('employee_id',$id)->delete();
+        ExecutiveAreas::where('executive_id',$id)->delete();
         foreach ($request->areas as $key => $area_id) {
-            $userAreas = new EmployeeAreas();
-            $userAreas->employee_id =  $id;
+            $userAreas = new ExecutiveAreas();
+            $userAreas->executive_id =  $id;
             $userAreas->city_id = Auth::user()->city_id;
             $userAreas->area_id = $area_id;
             $userAreas->save();
         }
-        $updateArray = ['name'=>$request->username,'email'=>$request->email,'password'=>$password,'designation'=>$request->designation,'mobile_number'=>$request->mobile_number,'profile_pic'=>$profileImage,'goverment_proff'=>$govementProff,'police_verification'=>$policeverificationProff,'experience'=>$request->experience];
 
-        $result = Employee::where('id',$id)->update($updateArray);
+
+        $updateArray = ['name'=>$request->username,'email'=>$request->email,'password'=>$password,'designation'=>$request->designation,'mobile_number'=>$request->mobile_number,'profile_pic'=>$profileImage,'goverment_proff'=>$govementProff,'police_verification'=>$policeverificationProff,'experience'=>$request->experience];
+         
+
+        $result = Executive::where('id',$id)->update($updateArray);
         if($result==1){
-            return redirect()->route('crews.index')->with('success','Employees Successfully Updated');
+            return redirect()->route('executives.index')->with('success','Executive Successfully Updated');
         } else{
-            return redirect()->back()->with('success','Employees Successfully Updated');
+            return redirect()->back()->with('success','Executive Successfully Updated');
         }
        
     }
 
-     
     public function destroy($id)
     {
-        EmployeeAreas::where('employee_id',$id)->delete();
+        ExecutiveAreas::where('executive_id',$id)->delete();
         $user = Executive::find($id);
 
-        $destinationPath = public_path('/employeeprofilepic');
+         $destinationPath = public_path('/executiveprofilepic');
         File::delete($destinationPath.'/'.$user->profile_pic);
 
-        $destinationPathOne = public_path('/employeegovementproff');
+        $destinationPathOne = public_path('/executivegovementproff');
         File::delete($destinationPathOne.'/'.$user->goverment_proff);
 
-        $destinationPathOne = public_path('/employeePoliceproff');
+        $destinationPathOne = public_path('/executivePoliceproff');
         File::delete($destinationPathOne.'/'.$user->police_verification);
-       
+        
+
+
         $result = $user->delete();
         if($result==1){
-            $message = 'Employe Successfully Deleted';
-            return redirect()->route('crews.index')->with( [ 'success' => $message ] );
+            $message = 'Executive Successfully Deleted';
+            return redirect()->route('executives.index')->with( [ 'success' => $message ] );
         } else {
             $message = 'Oops Something went wrong try again';
-            return redirect()->route('crews.index')->with( [ 'error' => $message ] );
+            return redirect()->route('executives.index')->with( [ 'error' => $message ] );
         }
     }
 
-    public function assignEmployeesCategory($id)
+    public function assignCategory($id)
     {
         $data = [];
         $data['page_title']="Assign Category";
         $data['category']=Category::pluck('category_name','id');
         $data['subcategory']=[];
-        $data['employeeCategory'] = EmployeeCategories::with(['category','subcategory'])->get();
-        return view('Employee.Category.index',compact('data'));
+        $data['executiveCategory'] = ExecutiveCategories::with(['category','subcategory'])->get();
+        return view('Executive.Category.index',compact('data'));
     }
 
-    public function assignEmployeesCategoryStore(AssignCategoryRequest $request)
+    public function assignCategoryStore(AssignCategoryRequest $request)
     {
-        $matchExists = ['employee_id'=>$request->employee_id,'category_id'=>$request->category_id,'subcategory_id'=>$request->subcategory_id];
+        $matchExists = ['executive_id'=>$request->executive_id,'category_id'=>$request->category_id,'subcategory_id'=>$request->subcategory_id];
 
-        $count = EmployeeCategories::where($matchExists)->count();
+        $count = ExecutiveCategories::where($matchExists)->count();
         if($count==0)
         {
-            $employeeCategory = new EmployeeCategories();
-            $employeeCategory->employee_id = $request->employee_id;
-            $employeeCategory->category_id = $request->category_id;
-            $employeeCategory->subcategory_id =$request->subcategory_id;
-            $result = $employeeCategory->save();
+            $executiveCategory = new ExecutiveCategories();
+            $executiveCategory->executive_id = $request->executive_id;
+            $executiveCategory->category_id = $request->category_id;
+            $executiveCategory->subcategory_id =$request->subcategory_id;
+            $result = $executiveCategory->save();
             if($result==1){
-                $message = 'Crew Member Category Successfully Assigned';
+                $message = 'Executive Category Successfully Assigned';
                 return redirect()->back()->with( [ 'success' => $message ] );
             } else {
                 $message = 'Oops Something went wrong try again';
@@ -353,16 +354,17 @@ class EmployeeController extends Controller
         }   
     }
 
-    public function employeeCategoryDelete($id)
+    public function executiveCategoryDelete($id)
     {
-        $employeeCategory = EmployeeCategories::find($id);
-        $result = $employeeCategory->delete();
+        $executiveCategory = ExecutiveCategories::find($id);
+        $result = $executiveCategory->delete();
         if($result==1){
-            $message = 'Crew Member Category Successfully Deleted';
+            $message = 'Executive Category Successfully Deleted';
             return redirect()->back()->with( [ 'success' => $message ] );
         } else {
             $message = 'Oops Something went wrong try again';
             return redirect()->back()->with( [ 'error' => $message ] );
         }
     }
+
 }

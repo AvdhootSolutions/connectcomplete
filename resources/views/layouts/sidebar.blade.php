@@ -141,7 +141,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit' || Route::current()->getName() == 'subcategories.index' ||  Route::current()->getName() == 'subcategories.create' || Route::current()->getName() == 'subcategories.edit' || Route::current()->getName() == 'childcategories.index' ||  Route::current()->getName() == 'childcategories.create' || Route::current()->getName() == 'childcategories.edit' ) menu-is-opening menu-open  @endif ">
+          <li class="nav-item @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit' || Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit' ) menu-is-opening menu-open  @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -159,7 +159,7 @@
               
             </ul>
           </li>
-          <li class="nav-item @if(Route::current()->getName() == 'employees.index' ||  Route::current()->getName() == 'employees.create' || Route::current()->getName() == 'employees.edit' ) menu-is-opening menu-open  @endif ">
+          <li class="nav-item @if(Route::current()->getName() == 'crews.index' ||  Route::current()->getName() == 'crews.create' || Route::current()->getName() == 'crews.edit'||Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit' || Route::current()->getName() == 'assignEmployeesCategory' || Route::current()->getName() == 'searchEmployee' || Route::current()->getName() == 'assignCategory' || Route::current()->getName() == 'searchExecutive' ) menu-is-opening menu-open  @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -169,13 +169,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item  ">
-                <a href="{{route('employees.index')}}" class="nav-link @if(Route::current()->getName() == 'employees.index' ||  Route::current()->getName() == 'employees.create' || Route::current()->getName() == 'employees.edit') active @endif">
+                <a href="{{route('crews.index')}}" class="nav-link @if(Route::current()->getName() == 'crews.index' ||  Route::current()->getName() == 'crews.create' || Route::current()->getName() == 'crews.edit' ||Route::current()->getName() == 'assignEmployeesCategory' || Route::current()->getName() == 'searchEmployee' ) active @endif">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Employees</p>
+                  <p>Crew Members</p>
                 </a>
               </li>
               <li class="nav-item  ">
-                <a href="{{route('states.index')}}" class="nav-link @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit') active @endif">
+                <a href="{{route('executives.index')}}" class="nav-link @if(Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit'|| Route::current()->getName() == 'assignCategory' || Route::current()->getName() == 'searchExecutive' ) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Executives</p>
                 </a>

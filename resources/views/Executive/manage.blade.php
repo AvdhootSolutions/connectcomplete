@@ -3,12 +3,12 @@
 <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>City Admin</h1>
+            <h1>Executive</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">City Admin</li>
+              <li class="breadcrumb-item active">Executive</li>
             </ol>
           </div>
         </div>
@@ -18,33 +18,34 @@
   <!-- Default box -->
       <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">City Admin</h3>
+                <h3 class="card-title">Executive</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start --> @include('layouts.errorMessage')
               @if($data['action']=="create")
               
               {!! Form::open(array(
-                            'route' => 'users.store', 
+                            'route' => 'executives.store', 
                             'method'=>'POST', 
                             'id'=>'productlist-form',
                             'files'=> true
                     )) !!}
                     @csrf
               @else
-               {{ Form::model($data['user'], array('route' => array('users.update', $data['user']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
+               {{ Form::model($data['user'], array('route' => array('executives.update', $data['user']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
                     {{ method_field('PUT') }}  
                     <input type="hidden" name="action" value="edit">  
                     <input type="hidden" name="id" value="{{$data['user']->id}}">  
               @endif
                
                 <div class="card-body">
-                  @include('Users.form-fields')
+                  @include('Executive.form-fields')
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Submit</button> |
+                  <a href="{{route('executives.index')}}" class="btn btn-primary">Back</a>
                 </div>
               </form>
             </div>

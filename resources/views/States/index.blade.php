@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('page_title',$data['page_title'])
 @section('content-header')
 <div class="container-fluid">
         <div class="row mb-2">

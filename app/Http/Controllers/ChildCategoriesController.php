@@ -31,6 +31,21 @@ class ChildCategoriesController extends Controller
         }
         return response()->json(array('status' => 'error', 'data' => 'invalid request'));
     } 
+
+     public function getChildCategory(Request $request)
+    {
+       
+        $subcategory_id = (int) $request->subcategory_id;
+        if ($subcategory_id > 0) {
+            $childcategory = ChildCategory::select(['id', 'child_category_name'])
+                            ->where("subcategory_id", $subcategory_id)
+                            ->orderBy('child_category_name')
+                            ->get();
+        
+            return response()->json(array('status' => 'success', 'data' => $childcategory));
+        }
+        return response()->json(array('status' => 'error', 'data' => 'invalid request'));
+    } 
     public function index()
     {
         $data = [];

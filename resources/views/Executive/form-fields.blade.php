@@ -86,7 +86,7 @@
                         </div>
                       </div>
                         @if(isset($data['user']->profile_pic))
-                        <img id="blah" height="100" width="100" src="{{asset('public/employeeprofilepic/'.$data['user']->profile_pic)}}" alt="your image" />
+                        <img id="blah" height="100" width="100" src="{{asset('public/executiveprofilepic/'.$data['user']->profile_pic)}}" alt="your image" />
                         @else
                         <img id="blah" height="100" width="100" src="#" alt="your image" />
                         @endif
@@ -107,7 +107,7 @@
                           </div>
                         </div>
                         @if(isset($data['user']->goverment_proff))
-                        <img id="blah" height="100" width="100" src="{{asset('public/employeegovementproff/'.$data['user']->goverment_proff)}}" alt="your image" />
+                        <img id="blah" height="100" width="100" src="{{asset('public/executivegovementproff/'.$data['user']->goverment_proff)}}" alt="your image" />
                         @else
                         <img id="blah" height="100" width="100" src="#" alt="your image" />
                         @endif
@@ -126,7 +126,7 @@
                           </div>
                         </div>
                         @if(isset($data['user']->police_verification))
-                        <img id="blah" height="100" width="100" src="{{asset('public/employeePoliceproff/'.$data['user']->police_verification)}}" alt="your image" />
+                        <img id="blah" height="100" width="100" src="{{asset('public/executivePoliceproff/'.$data['user']->police_verification)}}" alt="your image" />
                         @else
                         <img id="blah" height="100" width="100" src="#" alt="your image" />
                         @endif

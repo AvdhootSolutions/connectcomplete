@@ -27,6 +27,35 @@
                      
                   </div>
                   <div class="form-group">
+                    <label for="exampleInputPassword1">Is Featured ?</label>
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary1" value="1" name="is_featured" @if(isset($data['childcategory']->is_featured) && $data['childcategory']->is_featured =="1") 'checked' @endif >
+                        <label for="radioPrimary1">Yes
+                        </label>
+                      </div>
+                      <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary2" value="0" name="is_featured" @if(isset($data['childcategory']->is_featured) && $data['childcategory']->is_featured =="0") 'checked' @endif>
+                        <label for="radioPrimary2">No
+                        </label>
+                      </div>
+                    
+                     
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Is Trending ?</label>
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary3" value="1" name="is_trending" @if(isset($data['childcategory']->is_trending) && $data['childcategory']->is_trending =="1") 'checked' @endif>
+                        <label for="radioPrimary3">Yes
+                        </label>
+                      </div>
+                      <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary4" value="0" name="is_trending" @if(isset($data['childcategory']->is_trending) && $data['childcategory']->is_trending =="0") 'checked' @endif>
+                        <label for="radioPrimary4">No
+                        </label>
+                      </div>
+                     
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputPassword1">Select Working Stage</label>
                     <select name="working_stage" id="working_stage" onchange="workingStage(this);" class="form-control">
                       <option value="">Select Option</option>

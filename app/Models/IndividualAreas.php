@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExecutiveAreas extends Model
-{	
+class IndividualAreas extends Model
+{
     use HasFactory;
-    protected $table = 'tbl_executive_areas';
+    protected $table = 'tbl_individual_area';
 
     public function areas()
     {

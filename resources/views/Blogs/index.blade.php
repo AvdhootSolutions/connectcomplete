@@ -3,12 +3,12 @@
 <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Cities</h1>
+            <h1>Blogs</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Cities</li>
+              <li class="breadcrumb-item active">Blogs</li>
             </ol>
           </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$data['page_title']}}</h3>
-                <a href="{{route('cities.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
+                <a href="{{route('blogs.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -33,30 +33,33 @@
                   <thead>
                   <tr>
                     <th>Sr.no</th>
-                    <th>Name</th>
-                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    
                     <th>Action</th>
-                    <th>Assign</th>
                   </tr>
                   </thead>
                   <style type="text/css">.flex-row{display: flex;}</style>
                   <tbody>
-                  @if($data['cities']!="")
-                  @foreach($data['cities'] as $key=>$cities) 
+                  @if($data['blogs']!="")
+                  @foreach($data['blogs'] as $key=>$blogs) 
                   <tr>
                     <td>{{$key+1}}</td>
-                    <td>{{$cities->name}}</td>
-                    <td><img src="{{asset('public/cities/'.$cities->city_image)}}" height="70" width="100"></td>
-                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('cities.edit',$cities->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
-                      <form action="{{ url('/cities', ['id' => $cities->id]) }}" method="post" id="delete_form{{$cities->id}}">
-                    <button  data-toggle="modal" data-target="#modal-danger{{ $cities->id}}"  class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <td>{{$blogs->title}}</td>
+                    <td>{{$blogs->author}}<!-- <img src="{{asset('public/blogs/'.$blogs->blog_image)}}" height="70" width="100"> --></td>
+                    
+                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('blogs.show',$blogs->id) }}" class="btn btn-xs btn-success"><i class="fas fa-eye"></i></a>
+                      
+                      <a style="margin-right: 5px;" href="{{ route('blogs.edit',$blogs->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
+                      
+                      <form action="{{ url('/blogs', ['id' => $blogs->id]) }}" method="post" id="delete_form{{$blogs->id}}">
+                    <button  data-toggle="modal" data-target="#modal-danger{{ $blogs->id}}"  class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         @method('delete')
                         @csrf
                     </form>
                     </td>
-                    <td><a href="{{route('assigncitiycategory',['id'=>$cities->id])}}" class="btn btn-sm btn-primary">Category</a></td>
                      <!-- Delete Modal -->
-                    <div class="modal modal-danger fade" id="modal-danger{{ $cities->id}}">
+                    <div class="modal modal-danger fade" id="modal-danger{{ $blogs->id}}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -68,7 +71,7 @@
                             <p>Are you sure you want to delete this Record ? </p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline pull-left" onclick="deleteItem('{{ $cities->id }}')">Ok</button>
+                            <button type="button" class="btn btn-outline pull-left" onclick="deleteItem('{{ $blogs->id }}')">Ok</button>
                             <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Cancel</button>
                           </div>
                         </div>
@@ -86,8 +89,8 @@
                     <th>Sr.no</th>
                     <th>Name</th>
                     <th>Image</th>
+              
                     <th>Action</th>
-                    <th>Assign</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -118,7 +121,7 @@
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,

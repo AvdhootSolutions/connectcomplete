@@ -1,13 +1,15 @@
 <?php
-
+ 
 use Illuminate\Support\Facades\Route;
 
  
 
 Route::get('/', function () {
     //return redirect()->route('login');
+
+     
 	if(Auth()->user()!=''){
-		 if (Auth()->user()->hasAnyRole(['superadmin', 'admin'])) {
+		 if (Auth()->user()->hasAnyRole(['cityadmin', 'admin'])) {
            
             return redirect('home');
         }
@@ -52,7 +54,60 @@ Route::delete('/employeeCategoryDelete/{id}','EmployeeController@employeeCategor
 Route::post('/searchEmployee','EmployeeController@searchEmployee')->name('searchEmployee');
 
 
+Route::resource('/individualusers','IndividualUserController');
+Route::post('/individualusers/updateStatus','IndividualUserController@updateStatus')->name('individualusers.updateStatus');
+Route::post('/searchIndividual','IndividualUserController@searchIndividual')->name('searchIndividual');
+Route::post('/searchCorporate','CorporateUserController@searchCorporate')->name('searchCorporate');
+Route::post('/corporateusers/updateStatus','CorporateUserController@updateStatus')->name('corporateusers.updateStatus');
+Route::resource('/corporateusers','CorporateUserController');
+Route::resource('/individualinquiry','IndividualInquiryController');
+Route::resource('/corporateinquiry','CorporateInquiryController');
 
+
+
+
+
+/* assign individual inquiries */
+
+Route::get('/assignexecutiveinquiry/{id}/{cat_id}/{subcat_id}/{area_id}','AssignExecutiveInquiryController@assignExecutiveInquiry')->name('assignexecutiveinquiry');
+Route::post('/storeAssignExecutiveinquiry',
+	'AssignExecutiveInquiryController@storeAssignExecutiveinquiry')->name('storeAssignExecutiveinquiry');
+Route::delete('/deleteExecutiveInquiry/{id}','AssignExecutiveInquiryController@deleteExecutiveInquiry')->name('deleteExecutiveInquiry');
+
+
+
+Route::get('/assigncrewsinquiry/{id}/{cat_id}/{subcat_id}/{area_id}','AssignCrewsInquiryController@assignCrewsinquiry')->name('assigncrewsinquiry');
+Route::post('/storeAssignCrewsinquiry',
+	'AssignCrewsInquiryController@storeAssignCrewsinquiry')->name('storeAssignCrewsinquiry');
+Route::delete('/deletecrewInquiry/{id}','AssignCrewsInquiryController@deleteCrewInquiry')->name('deletecrewInquiry');
+
+
+
+/***** assign Crew Inquiries ******/
+Route::get('/assignCorporateExecutiveinquiry/{id}/{cat_id}/{subcat_id}/{area_id}','AssignCorporateExecutiveInquiryController@assignCorporateExecutiveinquiry')->name('assignCorporateExecutiveinquiry');
+Route::post('/storeAssignCorporateExecutiveinquiry',
+	'AssignCorporateExecutiveInquiryController@storeAssignCorporateExecutiveinquiry')->name('storeAssignCorporateExecutiveinquiry');
+Route::delete('/deleteCorporateExecutiveInquiry/{id}','AssignCorporateExecutiveInquiryController@deleteCorporateExecutiveInquiry')->name('deleteCorporateExecutiveInquiry');
+
+
+
+
+Route::get('/assignCorporateCrewsinquiry/{id}/{cat_id}/{subcat_id}/{area_id}','AssignCorporateCrewInquiryController@assignCorporateCrewsinquiry')->name('assignCorporateCrewsinquiry');
+Route::post('/storeAssignCorporateCrewsinquiry',
+	'AssignCorporateCrewInquiryController@storeAssignCorporateCrewsinquiry')->name('storeAssignCorporateCrewsinquiry');
+Route::delete('/deleteCorporatecrewInquiry/{id}','AssignCorporateCrewInquiryController@deleteCorporatecrewInquiry')->name('deleteCorporatecrewInquiry');
+
+
+
+/***City based assign category****/
+Route::get('assigncitiycategory/{id}','AssignCategoryController@assignCitiyCategory')->name('assigncitiycategory');
+Route::post('assignCitycategory/store','AssignCategoryController@store')->name('assignCitycategory.store');
+Route::delete('/citycategoryDelete/{id}','AssignCategoryController@delete')->name('citycategoryDelete');
+
+
+
+
+Route::resource('/blogs','BlogsController');
 /* Ajax Route */
 
 Route::get('/getsubcategory','ChildCategoriesController@getSubCategory')->name('getsubcategory');

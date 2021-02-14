@@ -116,7 +116,7 @@ class ExecutiveController extends Controller
         $data = [];
         $data['page_title']="Create Executive";
         $data['action'] ="create";
-       	$cityId = Auth::user()->city_id;
+       	$cityId = Auth::user()->city_id; 
         
         $data['areas'] = Areas::where('city_id',$cityId)->get();
        	$executiveAreas = ExecutiveAreas::where('city_id',$cityId)->pluck('area_id')->toArray();
@@ -193,6 +193,22 @@ class ExecutiveController extends Controller
         }
         return redirect()->route('executives.index')->with('success','Executive Successfully Added');
     }
+
+
+    public function show($id)
+    {
+        $data = [];
+        $data['users'] = Executive::with(['areas.areas','category.category','category.subcategory'])->where('id',$id)->first();
+
+
+        $data['page_title']="View Crew Member";
+        return view('Executive.show',compact('data'));
+    }
+
+
+
+
+
 
     public function edit(Request $request,$id)
     {
@@ -325,7 +341,7 @@ class ExecutiveController extends Controller
         $data['page_title']="Assign Category";
         $data['category']=Category::pluck('category_name','id');
         $data['subcategory']=[];
-        $data['executiveCategory'] = ExecutiveCategories::with(['category','subcategory'])->get();
+        $data['executiveCategory'] = ExecutiveCategories::with(['category','subcategory'])->where('executive_id',$id)->get();
         return view('Executive.Category.index',compact('data'));
     }
 

@@ -107,6 +107,8 @@ class ChildCategoriesController extends Controller
         $childcategory->working_stage=$request->working_stage;
         $childcategory->minimum_cost=$minimum_cost;
         $childcategory->service_cost=$service_cost;
+        $childcategory->is_featured=$request->is_featured;
+        $childcategory->is_trending=$request->is_trending;
         $result = $childcategory->save();
 
 
@@ -187,6 +189,8 @@ class ChildCategoriesController extends Controller
                 'working_stage'=>$request->working_stage,
                 'minimum_cost'=>$minimum_cost,
                 'service_cost'=>$service_cost,
+                'is_featured'=>$request->is_featured,
+                'is_trending'=>$request->is_trending
             ];
         
         $result = ChildCategory::where('id',$id)->update($updateArray);

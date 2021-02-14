@@ -134,6 +134,57 @@
               </p>
             </a>
           </li>
+           <li class="nav-item @if(Route::current()->getName() == 'crews.index' ||  Route::current()->getName() == 'crews.create' || Route::current()->getName() == 'crews.edit'||Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit' || Route::current()->getName() == 'assignEmployeesCategory' || Route::current()->getName() == 'searchEmployee' || Route::current()->getName() == 'assignCategory' || Route::current()->getName() == 'searchExecutive' ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('crews.index')}}" class="nav-link @if(Route::current()->getName() == 'crews.index' ||  Route::current()->getName() == 'crews.create' || Route::current()->getName() == 'crews.edit' ||Route::current()->getName() == 'assignEmployeesCategory' || Route::current()->getName() == 'searchEmployee' ) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crew Members</p>
+                </a>
+              </li>
+              <li class="nav-item  ">
+                <a href="{{route('executives.index')}}" class="nav-link @if(Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit'|| Route::current()->getName() == 'assignCategory' || Route::current()->getName() == 'searchExecutive' ) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Executives</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          
+          
+           
+          <li class="nav-item">
+            <a href="{{ route('individualusers.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p> Individual Users </p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="{{ route('corporateusers.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p> Corporate  Users </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('blogs.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p> Blogs </p>
+            </a>
+          </li>
+          
+           
+
+
         </ul>
         @endrole
 
@@ -141,24 +192,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit' || Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit' ) menu-is-opening menu-open  @endif ">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item  ">
-                <a href="{{route('categories.index')}}" class="nav-link @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dummy</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
+          
           <li class="nav-item @if(Route::current()->getName() == 'crews.index' ||  Route::current()->getName() == 'crews.create' || Route::current()->getName() == 'crews.edit'||Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit' || Route::current()->getName() == 'assignEmployeesCategory' || Route::current()->getName() == 'searchEmployee' || Route::current()->getName() == 'assignCategory' || Route::current()->getName() == 'searchExecutive' ) menu-is-opening menu-open  @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -182,15 +216,65 @@
               </li>
             </ul>
           </li>
-          <!-- <li class="nav-item">
-            <a href="{{ route('users.index')}}" class="nav-link">
+          <?php
+          $userType = auth()->user()->user_type;
+          
+          //Usertype 0 Corporate and 1 Individual
+          if($userType==1){
+          ?>
+          <li class="nav-item">
+            <a href="{{ route('individualusers.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
+              <p> Individual Users </p>
+            </a>
+          </li>
+          <li class="nav-item @if(Route::current()->getName() == 'individualinquiry.index' ||  Route::current()->getName() == 'individualinquiry.create' || Route::current()->getName() == 'individualinquiry.edit' || Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit'|| Route::current()->getName() == 'assigncrewsinquiry'|| Route::current()->getName() == 'assignexecutiveinquiry' ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-              City Admin
-                 
+                Inquiries
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li> -->
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('individualinquiry.index')}}" class="nav-link @if(Route::current()->getName() == 'individualinquiry.index' ||  Route::current()->getName() == 'individualinquiry.create' || Route::current()->getName() == 'individualinquiry.edit' || Route::current()->getName() == 'assigncrewsinquiry'|| Route::current()->getName() == 'assignexecutiveinquiry') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listing</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+        <?php } ?>
+        <?php if($userType==0){
+          ?>
+          <li class="nav-item">
+            <a href="{{ route('corporateusers.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p> Corporate  Users </p>
+            </a>
+          </li>
+
+          <li class="nav-item @if(Route::current()->getName() == 'individualinquiry.index' ||  Route::current()->getName() == 'individualinquiry.create' || Route::current()->getName() == 'individualinquiry.edit' || Route::current()->getName() == 'executives.index' ||  Route::current()->getName() == 'executives.create' || Route::current()->getName() == 'executives.edit'|| Route::current()->getName() == 'assigncrewsinquiry'|| Route::current()->getName() == 'assignexecutiveinquiry' ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Corporate Inquiries
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('corporateinquiry.index')}}" class="nav-link @if(Route::current()->getName() == 'corporateinquiry.index' ||  Route::current()->getName() == 'corporateinquiry.create' || Route::current()->getName() == 'corporateinquiry.edit' || Route::current()->getName() == 'assigncrewsinquiry'|| Route::current()->getName() == 'assignexecutiveinquiry') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listing</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+        <?php }?>
         </ul>
         @endrole
       </nav>

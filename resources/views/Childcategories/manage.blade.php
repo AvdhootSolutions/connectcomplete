@@ -50,7 +50,11 @@
       <!-- /.card -->
 @endsection
 @section('extra-scripts')
+<script src="{{asset('public/theme/ckeditor/ckeditor.js')}}"></script>
 <script >
+    CKEDITOR.replace('content');
+    CKEDITOR.replace('long_description');
+    
   function isNumber(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;

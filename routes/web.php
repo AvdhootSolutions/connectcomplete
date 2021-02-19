@@ -29,6 +29,13 @@ Route::resource('/categories','CategoriesController');
 Route::resource('/subcategories','SubCategoriesController');
 Route::resource('/childcategories','ChildCategoriesController');
 
+/*------------gallery        -----------------*/
+	Route::get('/childcategories/gallery/{id}','ChildCategoriesController@gallery')->name('childcategories.gallery');
+	Route::get('/childcategories/addgallery/{id}','ChildCategoriesController@addgallery')->name('childcategories.addgallery');
+	Route::post('/childcategories/storegallery','ChildCategoriesController@storegallery')->name('childcategories.store.gallery');
+	Route::delete('/childcategories/deletegallery/{id}','ChildCategoriesController@deletegallery')->name('childcategories.gallery.delete');
+
+
 Route::resource('/corportatecategories','CorporateCategoriesController');
 Route::resource('/corportatesubcategories','CorporateSubCategoriesController');
 Route::resource('/corportatechildcategories','CorporateChildCategoriesController');
@@ -108,6 +115,10 @@ Route::delete('/citycategoryDelete/{id}','AssignCategoryController@delete')->nam
 
 
 Route::resource('/blogs','BlogsController');
+
+Route::resource('/banners','BannerController');
+Route::resource('/featuredimages','FeaturedImagesController');
+Route::resource('/pagecontent','PagesController');
 /* Ajax Route */
 
 Route::get('/getsubcategory','ChildCategoriesController@getSubCategory')->name('getsubcategory');

@@ -25,6 +25,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$data['page_title']}}</h3>
+
                 <a href="{{route('childcategories.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
               </div>
               <!-- /.card-header -->
@@ -39,6 +40,7 @@
                     <th>Image</th>
                     <th>Sorting Number</th>
                     <th>Action</th>
+                    <th>Gallery</th>
                   </tr>
                   </thead>
                   <style type="text/css">.flex-row{display: flex;}</style>
@@ -59,6 +61,7 @@
                         @csrf
                     </form>
                     </td>
+                    <td><a style="margin-right: 5px;" href="{{ route('childcategories.gallery',$childcategory->id) }}" class="btn btn-xs btn-primary"><i class="fas fa-image"></i>&nbsp;Gallery</a></td>
                      <!-- Delete Modal -->
                     <div class="modal modal-danger fade" id="modal-danger{{ $childcategory->id}}">
                       <div class="modal-dialog">
@@ -94,6 +97,7 @@
                     <th>Image</th>
                     <th>Sorting Number</th>
                     <th>Action</th>
+                    <th>Gallery</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -124,7 +128,7 @@
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,

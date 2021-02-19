@@ -7,7 +7,8 @@ use App\Http\Requests\ChildcategoryRequest;
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\ChildCategory;
-
+use App\Models\ChildCategoryImages;
+use File;
 class ChildCategoriesController extends Controller
 {
     public function __construct()
@@ -109,6 +110,18 @@ class ChildCategoriesController extends Controller
         $childcategory->service_cost=$service_cost;
         $childcategory->is_featured=$request->is_featured;
         $childcategory->is_trending=$request->is_trending;
+        $childcategory->actual_price=$request->actual_price;
+        $childcategory->tag_percentage=$request->tag_percentage;
+        $childcategory->short_description=$request->short_description;
+        $childcategory->long_description=$request->long_description;
+
+
+
+
+
+
+
+
         $result = $childcategory->save();
 
 
@@ -190,7 +203,11 @@ class ChildCategoriesController extends Controller
                 'minimum_cost'=>$minimum_cost,
                 'service_cost'=>$service_cost,
                 'is_featured'=>$request->is_featured,
-                'is_trending'=>$request->is_trending
+                'is_trending'=>$request->is_trending,
+                'actual_price'=>$request->actual_price,
+                'tag_percentage'=>$request->tag_percentage,
+                'short_description'=>$request->short_description,
+                'long_description'=>$request->long_description
             ];
         
         $result = ChildCategory::where('id',$id)->update($updateArray);
@@ -222,5 +239,122 @@ class ChildCategoriesController extends Controller
         } catch (Exception $e) {
             
         }
+    }
+
+
+    public function gallery($id)
+    {
+        $data = [];
+        $data['id'] = $id;
+        $data['productImages'] = ChildCategoryImages::where('child_category_id',$id)->get();
+         
+        return view('Childcategories.gallery',compact('data'));
+    }
+
+    public function addgallery($id)
+    {   
+        $data = [];
+        $data['id'] = $id;
+        $data['productImages'] = ChildCategoryImages::where('child_category_id',$id)->get();
+         
+        return view('Childcategories.uploadGallery',compact('data'));
+
+    }
+
+     public function storegallery(Request $request)
+    {
+        $child_category_id = $request->child_category_id;
+
+        $getcount = ChildCategoryImages::where('child_category_id',$child_category_id)->get()->count();
+
+        $totalLimit =50;
+        $remainingLimit = $totalLimit- $getcount;
+
+        $hiddenImage = $request->hiddenImage;
+        $checkDeleted = $request->hiddenDeletedImage;
+        if(count($request->product_image)<=$remainingLimit){
+                //If Previous Images Deleted
+                if($checkDeleted!=""){
+                    $stringData = rtrim($request->hiddenDeletedImage,',');
+                    $explode = explode(",",$stringData);
+                    foreach ($explode  as  $value) {
+                        
+                        $usersImage = public_path("uploads/").$value;
+                        if (File::exists($usersImage)) { 
+                            unlink($usersImage);
+                        } 
+                    }
+                }
+                
+                if ($request->hasFile('product_image')) {
+
+                        $image=array();
+                        if($files=$request->file('product_image')){
+                            
+                            foreach($files as $productImage){
+                                $file = $productImage;
+                                $productImage = time().$file->getClientOriginalName();
+                                $destinationPath = public_path('/uploads');
+                                $file->move($destinationPath, $productImage);
+                                $image[]=$productImage;
+
+                            }
+
+                        }
+
+                        $implodeString = implode(",",$image);
+                        $newArray = $hiddenImage.','.$implodeString;
+                        if( $newArray[0] === ',' ) {
+                               $newArray = substr($newArray,1);
+                        }
+
+                } else {
+                        $newArray =$hiddenImage;
+                } 
+
+
+                $imagesArray = explode(",", $newArray);
+                $productsImages = ChildCategoryImages::where("child_category_id",$child_category_id)->get(['id']);   
+                ChildCategoryImages::destroy($productsImages->toArray());
+
+                for($i=0;$i<count($imagesArray);$i++){
+                    $productImage = new ChildCategoryImages();
+                    $productImage->child_category_id=$child_category_id;
+                     
+                    $productImage->image=$imagesArray[$i];
+                    
+                    $productImage->save();
+                }
+                   
+                $message = 'Gallery Images Successfully Uploaded';
+                return redirect()->route('childcategories.gallery',$child_category_id)->with( [ 'success' => $message ] );
+        }
+        else {
+            $message = 'You can Upload only 50 total Image..Try again with less images';
+                return redirect()->route('childcategories.addgallery',$child_category_id)->with( [ 'error' => $message ] );
+        }
+
+
+    }
+
+     public function deletegallery($id)
+    {
+        //dd($id);
+        $childCategoryImages = ChildCategoryImages::find($id);
+        $usersImage = public_path("uploads/").$childCategoryImages->image;
+        
+        if (File::exists($usersImage)) { 
+            //dd($usersImage);
+                    unlink($usersImage);
+        }
+        $result = $childCategoryImages->delete();
+        if($result==1){
+                $message = 'Image Successfully Added';
+                return redirect()->back()->with( [ 'success' => $message ] );
+            } else {
+                $message = 'Oops Something went wrong try again';
+                return redirect()->back()->with( [ 'error' => $message ] );
+        }
+
     }
 }

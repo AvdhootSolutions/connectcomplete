@@ -21,6 +21,11 @@ class ChildCategory extends Model
     	return $this->belongsTo(Subcategory::class,'subcategory_id');
     }
 
+    public function gallery()
+    {
+        return $this->belongsTo(ChildCategoryImages::class,'child_category_id','id');
+    }
+
 
     
 }

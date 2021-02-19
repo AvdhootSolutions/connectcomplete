@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{ asset('public/theme/plugins/select2/css/select2.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('public/theme/dist/css/adminlte.min.css')}}">
+  @yield('extra-css')
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

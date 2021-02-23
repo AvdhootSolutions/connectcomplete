@@ -20,6 +20,7 @@ class ChildCategoriesController extends Controller
     
     public function getSubCategory(Request $request)
     {
+         
     
         $cat_id = (int) $request->category_id;
         if ($cat_id > 0) {
@@ -161,11 +162,8 @@ class ChildCategoriesController extends Controller
     {
         $childcategory = ChildCategory::find($id);
         if ($request->hasFile('child_category_image')) {
-
-
             $destinationPath = public_path('/childcategory');
             File::delete($destinationPath.'/'.$childcategory->child_category_image);
-
 
             $this->validate($request, [
                  'child_category_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

@@ -1,0 +1,42 @@
+
+.row-padding {
+    padding: 10px;
+}
+ .p_tag{
+ 	margin-bottom: 0px !important;
+ 	font-size:16px;
+ }  
+ .icon-color{
+ 	    color: #3c4198;
+ }
+.badge {
+    display: inline-block;
+    /* min-width: 100%; */
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 550;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #eb2d2f;
+    border-radius: 20px;
+    margin: 0px 0px 0px 10px;
+    }
+
+    .square_badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 550;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #eb2d2f;  
+    }
+    .margin-top10{
+    	margin-top: 10px;
+    }

@@ -76,7 +76,7 @@
                       <input type="text" name="price" onkeypress="return isNumber(event)" class="form-control" id="exampleInputPassword1" placeholder="Offer Price"  value="{{ isset($data['childcategory']->price ) ? $data['childcategory']->price : old('price') }}" >
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Is Trending ?</label>
+                      <label for="exampleInputPassword1">Is Trending ?{{ $data['childcategory']->is_trending }}</label>
                       <div class="icheck-primary d-inline">
                           <input type="radio" id="radioPrimary3" value="1" name="is_trending" @if(isset($data['childcategory']->is_trending) && $data['childcategory']->is_trending =="1") 'checked' @endif>
                           <label for="radioPrimary3">Yes

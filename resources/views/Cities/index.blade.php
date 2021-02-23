@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$data['page_title']}}</h3>
-                <a href="{{route('cities.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
+                <a href="{{route('city.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -47,8 +47,8 @@
                     <td>{{$key+1}}</td>
                     <td>{{$cities->name}}</td>
                     <td><img src="{{asset('public/cities/'.$cities->city_image)}}" height="70" width="100"></td>
-                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('cities.edit',$cities->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
-                      <form action="{{ url('/cities', ['id' => $cities->id]) }}" method="post" id="delete_form{{$cities->id}}">
+                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('city.edit',$cities->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
+                      <form action="{{ url('/city', ['id' => $cities->id]) }}" method="post" id="delete_form{{$cities->id}}">
                     <button  data-toggle="modal" data-target="#modal-danger{{ $cities->id}}"  class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         @method('delete')
                         @csrf
@@ -118,7 +118,7 @@
     $('#example1').DataTable({
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": false,

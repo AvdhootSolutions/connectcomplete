@@ -20,7 +20,7 @@ class SubCategoriesController extends Controller
     {
         $data = [];
         $data['page_title']="Subcategories Listing";
-        $data['subcategory']=Subcategory::orderBy('id','desc')->get();
+        $data['subcategory']=Subcategory::with('category')->orderBy('id','desc')->get();
         return view('SubCategories.index',compact('data'));
     }
 

@@ -25,13 +25,13 @@
               @if($data['action']=="create")
               
               {!! Form::open(array(
-                            'route' => 'banners.store', 
+                            'route' => 'sliders.store', 
                             'method'=>'POST', 
                             'files'=> true
                     )) !!}
                     @csrf
               @else
-               {{ Form::model($data['banners'], array('route' => array('banners.update', $data['banners']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
+               {{ Form::model($data['banners'], array('route' => array('sliders.update', $data['banners']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
                     {{ method_field('PUT') }}  
                     <input type="hidden" name="action" value="edit">    
                     <input type="hidden" name="id" value="{{$data['banners']->id}}">

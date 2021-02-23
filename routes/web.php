@@ -44,7 +44,9 @@ Route::resource('/corportatechildcategories','CorporateChildCategoriesController
 
 Route::resource('/users','UserController');
 Route::resource('/states','StateController');
-Route::resource('/cities','CityController');
+Route::resource('/city','CityController');
+Route::resource('/newslatter','NewsLatterController');
+
 Route::resource('/areas','AreasController');
 Route::resource('/crews','EmployeeController');
 Route::resource('/executives','ExecutiveController');
@@ -67,6 +69,10 @@ Route::post('/searchIndividual','IndividualUserController@searchIndividual')->na
 Route::post('/searchCorporate','CorporateUserController@searchCorporate')->name('searchCorporate');
 Route::post('/corporateusers/updateStatus','CorporateUserController@updateStatus')->name('corporateusers.updateStatus');
 Route::resource('/corporateusers','CorporateUserController');
+ Route::any('individualinquiry/search', 'IndividualInquiryController@search')->name('individualinquiry.search');
+
+Route::get('/viewDetails/{id}','IndividualInquiryController@viewDetails')->name('viewDetails');
+
 Route::resource('/individualinquiry','IndividualInquiryController');
 Route::resource('/corporateinquiry','CorporateInquiryController');
 
@@ -114,11 +120,23 @@ Route::delete('/citycategoryDelete/{id}','AssignCategoryController@delete')->nam
 
 
 
-Route::resource('/blogs','BlogsController');
+Route::resource('/blog','BlogsController');
 
-Route::resource('/banners','BannerController');
+Route::resource('/sliders','BannerController');
 Route::resource('/featuredimages','FeaturedImagesController');
 Route::resource('/pagecontent','PagesController');
+
+Route::post('/reviews/approve','ReviewController@approve')->name('reviews.approve');
+Route::resource('/reviews','ReviewController');
+Route::resource('/inquiries','InquiryController');
+
+
+
+
+
+
+
+
 /* Ajax Route */
 
 Route::get('/getsubcategory','ChildCategoriesController@getSubCategory')->name('getsubcategory');

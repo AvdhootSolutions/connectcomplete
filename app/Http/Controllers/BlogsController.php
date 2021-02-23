@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Blogs;
+use File;
 class BlogsController extends Controller
 {
     public function __construct()
@@ -157,6 +158,20 @@ class BlogsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blogs = Blogs::find($id);
+        $usersImage = public_path("blogs/").$blogs->blog_image;
+        
+        if (File::exists($usersImage)) { 
+            //dd($usersImage);
+                    unlink($usersImage);
+        }
+        $result = $blogs->delete();
+        if($result==1){
+                $message = 'Image Successfully Added';
+                return redirect()->back()->with( [ 'success' => $message ] );
+            } else {
+                $message = 'Oops Something went wrong try again';
+                return redirect()->back()->with( [ 'error' => $message ] );
+        }
     }
 }

@@ -4,7 +4,7 @@
 	                </div>
 	                <div class="form-group">
                         <label for="exampleInputEmail1">Slug </label>
-                        <input type="text" name="slug" class="form-control"   placeholder="Enter  page Name" value="{{ isset($data['pagecontent']->page ) ? $data['pagecontent']->page : old('page') }}" id="slug-text" readonly="readonly" >
+                        <input type="text" name="slug" class="form-control"   placeholder="Enter  page Name" value="{{ isset($data['pagecontent']->slug ) ? $data['pagecontent']->slug : old('slug') }}" id="slug-text" readonly="readonly" >
 	                </div>
 	                <div class="form-group">
 	                    <label for="exampleInputEmail1">Email</label>

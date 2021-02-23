@@ -25,13 +25,13 @@
               @if($data['action']=="create")
               
               {!! Form::open(array(
-                            'route' => 'cities.store', 
+                            'route' => 'city.store', 
                             'method'=>'POST', 
                             'files'=> true
                     )) !!}
                     @csrf
               @else
-               {{ Form::model($data['cities'], array('route' => array('cities.update', $data['cities']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
+               {{ Form::model($data['cities'], array('route' => array('city.update', $data['cities']->id),'role'=>"form" ,'id'=>'productlist-form','enctype'=>'multipart/form-data')) }}
                     {{ method_field('PUT') }}  
                     <input type="hidden" name="action" value="edit">  
                     <input type="hidden" name="id" value="{{$data['cities']->id}}">  

@@ -33,8 +33,9 @@
                   <thead>
                   <tr>
                     <th>Sr.no</th>
+                     <th>Main Category</th>  
                     <th>Name</th>
-                    <th>Image</th>
+                    <!-- <th>Image</th> -->
                     <th>Sorting Number</th>
                     <th>Action</th>
                   </tr>
@@ -45,8 +46,9 @@
                   @foreach($data['subcategory'] as $key=>$subcategory) 
                   <tr>
                     <td>{{$key+1}}</td>
+                    <td>{{$subcategory->category->category_name}}</td>
                     <td>{{$subcategory->subcategory_name}}</td>
-                    <td><img src="{{asset('public/subcategory/'.$subcategory->subcategory_image)}}" height="70" width="100"></td>
+                   <!--  <td><img src="{{asset('public/subcategory/'.$subcategory->subcategory_image)}}" height="70" width="100"></td> -->
                     <td>{{$subcategory->sorting_number}}</td>
                     <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('subcategories.edit',$subcategory->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
                       <form action="{{ url('/subcategories', ['id' => $subcategory->id]) }}" method="post" id="delete_form{{$subcategory->id}}">
@@ -84,8 +86,9 @@
                   <tfoot>
                   <tr>
                     <th>Sr.no</th>
+                     <th>Main Category</th>  
                     <th>Name</th>
-                    <th>Image</th>
+                   <!--  <th>Image</th> -->
                     <th>Sorting Number</th>
                     <th>Action</th>
                   </tr>

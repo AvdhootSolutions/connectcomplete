@@ -37,6 +37,36 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li class="nav-item @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit' || Route::current()->getName() == 'cities.index' ||  Route::current()->getName() == 'cities.create' || Route::current()->getName() == 'cities.edit'||Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-map-marker"></i>
+              <p>
+                Locations
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item  ">
+                <a href="{{route('states.index')}}" class="nav-link @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>States</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('city.index')}}" class="nav-link @if(Route::current()->getName() == 'city.index' ||  Route::current()->getName() == 'city.create' || Route::current()->getName() == 'city.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cities</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('areas.index')}}" class="nav-link @if(Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Areas</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
           <li class="nav-item @if(Route::current()->getName() == 'categories.index' ||  Route::current()->getName() == 'categories.create' || Route::current()->getName() == 'categories.edit' || Route::current()->getName() == 'subcategories.index' ||  Route::current()->getName() == 'subcategories.create' || Route::current()->getName() == 'subcategories.edit' || Route::current()->getName() == 'childcategories.index' ||  Route::current()->getName() == 'childcategories.create' || Route::current()->getName() == 'childcategories.edit' ) menu-is-opening menu-open  @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
@@ -66,36 +96,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit' || Route::current()->getName() == 'cities.index' ||  Route::current()->getName() == 'cities.create' || Route::current()->getName() == 'cities.edit'||Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') menu-is-opening menu-open  @endif ">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-map-marker"></i>
-              <p>
-                Locations
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item  ">
-                <a href="{{route('states.index')}}" class="nav-link @if(Route::current()->getName() == 'states.index' ||  Route::current()->getName() == 'states.create' || Route::current()->getName() == 'states.edit') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>States</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('cities.index')}}" class="nav-link @if(Route::current()->getName() == 'cities.index' ||  Route::current()->getName() == 'cities.create' || Route::current()->getName() == 'cities.edit') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cities</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('areas.index')}}" class="nav-link @if(Route::current()->getName() == 'areas.index' ||  Route::current()->getName() == 'areas.create' || Route::current()->getName() == 'areas.edit') active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Areas</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
+         
           <li class="nav-item @if(Route::current()->getName() == 'corportatecategories.index' ||  Route::current()->getName() == 'corportatecategories.create' || Route::current()->getName() == 'corportatecategories.edit' || Route::current()->getName() == 'corportatesubcategories.index' ||  Route::current()->getName() == 'corportatesubcategories.create' || Route::current()->getName() == 'corportatesubcategories.edit' || Route::current()->getName() == 'corportatechildcategories.index' ||  Route::current()->getName() == 'corportatechildcategories.create' || Route::current()->getName() == 'corportatechildcategories.edit' ) menu-is-opening menu-open  @endif ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
@@ -138,7 +139,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Users
+                Employees
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -159,47 +160,121 @@
           </li>
           
           
+
+           <li class="nav-item @if(Route::current()->getName() == 'individualusers.index' ||  Route::current()->getName() == 'individualusers.create' || Route::current()->getName() == 'individualusers.edit'||Route::current()->getName() == 'corporateusers.index' ||  Route::current()->getName() == 'corporateusers.create' || Route::current()->getName() == 'corporateusers.edit') menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('individualusers.index')}}" class="nav-link @if(Route::current()->getName() == 'individualusers.index') active @endif">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p> Individual Users </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('corporateusers.index')}}" class="nav-link @if(Route::current()->getName() == 'corporateusers.index' || Route::current()->getName() == 'corporateusers.edit' || Route::current()->getName() == 'corporateusers.create') active @endif">
+                  <i class="nav-icon fas fa-user"></i>
+                  <p> Corporate  Users </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
+          <li class="nav-item @if(Route::current()->getName() == 'blog.index' ||  Route::current()->getName() == 'blog.create' || Route::current()->getName() == 'blog.edit'||Route::current()->getName() == 'sliders.index' ||  Route::current()->getName() == 'sliders.create' || Route::current()->getName() == 'sliders.edit'
+
+            ||Route::current()->getName() == 'featuredimages.index' ||  Route::current()->getName() == 'featuredimages.create' || Route::current()->getName() == 'featuredimages.edit'
+
+            ||Route::current()->getName() == 'pagecontent.index' ||  Route::current()->getName() == 'pagecontent.create' || Route::current()->getName() == 'pagecontent.edit'
+            
+            ||Route::current()->getName() == 'newslatter.index' ||  Route::current()->getName() == 'newslatter.create' || Route::current()->getName() == 'newslatter.edit'
+
+
+
+            ) menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Site Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('blog.index')}}" class="nav-link @if(Route::current()->getName() == 'blog.index' || Route::current()->getName() == 'blog.edit' || Route::current()->getName() == 'blog.create') active @endif">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p> Blogs </p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('sliders.index')}}" class="nav-link @if(Route::current()->getName() == 'sliders.index' || Route::current()->getName() == 'sliders.edit' || Route::current()->getName() == 'sliders.create') active @endif">
+                  <i class="nav-icon far fa-image"></i>
+                  <p> Banners </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('featuredimages.index')}}" class="nav-link @if(Route::current()->getName() == 'featuredimages.index' || Route::current()->getName() == 'featuredimages.edit' || Route::current()->getName() == 'featuredimages.create'  ) active @endif">
+                  <i class="nav-icon far fa-image"></i>
+                  <p> Featured Images </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('pagecontent.index')}}" class="nav-link @if(Route::current()->getName() == 'pagecontent.index' || Route::current()->getName() == 'pagecontent.edit' || Route::current()->getName() == 'pagecontent.create'  ) active @endif">
+                  <i class="nav-icon far fa-file"></i>
+                  <p>Pages </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('newslatter.index')}}" class="nav-link @if(Route::current()->getName() == 'newslatter.index' || Route::current()->getName() == 'newslatter.edit' || Route::current()->getName() == 'newslatter.create'  ) active @endif">
+                  <i class="nav-icon far fa-file"></i>
+                  <p>Newslatter </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
+
+
+
+          <li class="nav-item @if(Route::current()->getName() == 'reviews.index' ||  Route::current()->getName() == 'reviews.create' || Route::current()->getName() == 'reviews.edit') menu-is-opening menu-open  @endif ">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-comment"></i>
+              <p>
+                Reviews
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('reviews.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p> Service Reviews </p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+
+          
+
+
           
            
-          <li class="nav-item">
-            <a href="{{ route('individualusers.index')}}" class="nav-link @if(Route::current()->getName() == 'individualusers.index') active @endif">
-              <i class="nav-icon fas fa-user"></i>
-              <p> Individual Users </p>
-            </a>
-          </li>
-         
-          <li class="nav-item">
-            <a href="{{ route('corporateusers.index')}}" class="nav-link @if(Route::current()->getName() == 'corporateusers.index' || Route::current()->getName() == 'corporateusers.edit' || Route::current()->getName() == 'corporateusers.create') active @endif">
-              <i class="nav-icon fas fa-user"></i>
-              <p> Corporate  Users </p>
-            </a>
-          </li>
+          
 
-          <li class="nav-item">
-            <a href="{{ route('blogs.index')}}" class="nav-link @if(Route::current()->getName() == 'blogs.index' || Route::current()->getName() == 'blogs.edit' || Route::current()->getName() == 'blogs.create') active @endif">
-              <i class="nav-icon fas fa-book"></i>
-              <p> Blogs </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="{{ route('banners.index')}}" class="nav-link @if(Route::current()->getName() == 'banners.index' || Route::current()->getName() == 'banners.edit' || Route::current()->getName() == 'banners.create') active @endif">
-              <i class="nav-icon far fa-image"></i>
-              <p> Banners </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('featuredimages.index')}}" class="nav-link @if(Route::current()->getName() == 'featuredimages.index' || Route::current()->getName() == 'featuredimages.edit' || Route::current()->getName() == 'featuredimages.create'  ) active @endif">
-              <i class="nav-icon far fa-image"></i>
-              <p> Featured Images </p>
-            </a>
-          </li>
-           <li class="nav-item">
-            <a href="{{ route('pagecontent.index')}}" class="nav-link @if(Route::current()->getName() == 'pagecontent.index' || Route::current()->getName() == 'pagecontent.edit' || Route::current()->getName() == 'pagecontent.create'  ) active @endif">
-              <i class="nav-icon far fa-file"></i>
-              <p>Pages </p>
-            </a>
-          </li>
+          
           
            
 
@@ -264,7 +339,9 @@
               </li>
               
             </ul>
+            
           </li>
+          
         <?php } ?>
         <?php if($userType==0){
           ?>

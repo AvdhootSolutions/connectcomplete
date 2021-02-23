@@ -25,7 +25,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">{{$data['page_title']}}</h3>
-                <a href="{{route('blogs.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
+                <a href="{{route('blog.create')}}" style="float: right;" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -48,11 +48,11 @@
                     <td>{{$blogs->title}}</td>
                     <td>{{$blogs->author}}<!-- <img src="{{asset('public/blogs/'.$blogs->blog_image)}}" height="70" width="100"> --></td>
                     
-                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('blogs.show',$blogs->id) }}" class="btn btn-xs btn-success"><i class="fas fa-eye"></i></a>
+                    <td class="project-actions text-right flex-row"><a style="margin-right: 5px;" href="{{ route('blog.show',$blogs->id) }}" class="btn btn-xs btn-success"><i class="fas fa-eye"></i></a>
                       
-                      <a style="margin-right: 5px;" href="{{ route('blogs.edit',$blogs->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
+                      <a style="margin-right: 5px;" href="{{ route('blog.edit',$blogs->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-edit"></i></a>
                       
-                      <form action="{{ url('/blogs', ['id' => $blogs->id]) }}" method="post" id="delete_form{{$blogs->id}}">
+                      <form action="{{ url('/blog', ['id' => $blogs->id]) }}" method="post" id="delete_form{{$blogs->id}}">
                     <button  data-toggle="modal" data-target="#modal-danger{{ $blogs->id}}"  class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         @method('delete')
                         @csrf
